@@ -22,12 +22,11 @@
 
 #include <boost/asio.hpp>
 
-#include "Constants.hpp"
 
 class NetworkController
 {
 public:
-	NetworkController(Constants *constList);
+	NetworkController();
 	~NetworkController();
 	void startServer();
 	void waitForPing();

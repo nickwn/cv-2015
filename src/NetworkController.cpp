@@ -15,11 +15,9 @@
  *
  *    You should have received a copy of the GNU General Public License
  *    along with FRC Team 3341 Targeting.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *  Edited by Gerge Troulis for Testing Purposes with permission of the author
 */
-
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 
 #include <cstdlib>
 #include <cstring>
@@ -29,12 +27,11 @@
 
 #include <boost/asio.hpp>
 
-#include "Constants.hpp"
 #include "NetworkController.hpp"
 
-NetworkController::NetworkController(Constants *constList)
+NetworkController::NetworkController()
 {
-	portNumber = constList->portNumber;
+	portNumber = 3341;
 }
 
 NetworkController::~NetworkController()
