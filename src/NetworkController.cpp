@@ -16,8 +16,12 @@
  *    You should have received a copy of the GNU General Public License
  *    along with FRC Team 3341 Targeting.  If not, see <http://www.gnu.org/licenses/>.
  * 
- *  Edited by Gerge Troulis for Testing Purposes with permission of the author
 */
+
+/*
+ * NetworkController.cpp
+ * Handles the communication of data between the Targeting Program and the Java Helper
+ */
 
 #include <cstdlib>
 #include <cstring>
@@ -45,7 +49,8 @@ void NetworkController::startServer()
 {
 	try {
 		io_service = new boost::asio::io_service();
-		acceptor = new boost::asio::ip::tcp::acceptor(*io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), portNumber));
+		acceptor = new boost::asio::ip::tcp::acceptor(*io_service, 
+            boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), portNumber));
 		socket = new boost::asio::ip::tcp::socket(*io_service);
 		acceptor->accept(*socket);
 		boost::asio::socket_base::keep_alive option(true);

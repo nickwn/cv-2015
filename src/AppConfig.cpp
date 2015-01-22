@@ -27,8 +27,7 @@ AppConfig::AppConfig() :
 	isFile(0),
 	isDevice(0),
 	isHeadless(0),
-	isNetworking(1),
-	isCaptureMode(0)
+	isNetworking(1)
 {
 }
 

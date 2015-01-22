@@ -17,6 +17,11 @@
  *    along with FRC Team 3341 Targeting.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+ * CmdLineInterface.cpp
+ * Handles the command line arguments passed on to the program.
+ */
+
 #include <cstdlib>
 #include <getopt.h>
 #include <unistd.h>
