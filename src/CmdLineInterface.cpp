@@ -23,8 +23,9 @@
  */
 
 #include <cstdlib>
-#include <getopt.h>
 #include <unistd.h>
+#include <getopt.h>
+#include <iostream>
 #include <boost/lexical_cast.hpp>
 
 #include "AppConfig.hpp"
