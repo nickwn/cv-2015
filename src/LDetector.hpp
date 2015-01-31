@@ -10,7 +10,7 @@
  *
  *    FRC Team 3341 Targeting is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See thelibboost1.55-all-dev
  *    GNU General Public License for more details.
  *
  *    You should have received a copy of the GNU General Public License
@@ -22,19 +22,18 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include "L.hpp"
 
 class LDetector {
 public:
 	LDetector();
 
-	void elLoad();
+	void elLoad(cv::Mat foto);
 	void elSplit();
 	void elThresh();
 	void show();
 	void elFilter();
 	void elContours();
-	double elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt3);
-	bool LosAngles(std::vector<cv::Point> vect);
 	void largest2();
 	//double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0);
 	//void whatever();
@@ -42,7 +41,7 @@ public:
 //	void loopAndPrint();
 	//void show();
 	//bool containsRectangle(Rectangle rec1, Rectangle rec2);
-
+	std::vector<L> ArrayReturned();
 private:
 	//std::vector<Rectangle> rectList;
 	//std::vector<std::vector<cv::Point> > allRectangles;
@@ -56,8 +55,13 @@ private:
 	cv::Mat valUp, valLow;
 	cv::Mat thresh;
 	cv::Mat combine;
-	std::vector<std::vector<cv::Point> > all;
+	std::vector<L> all;
 	std::vector<cv::Point> approx;
+	double elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt3);
+	bool LosAngles(std::vector<cv::Point> vect);
+	
+
+
 };
 
 #endif /* LDetector_hpp */

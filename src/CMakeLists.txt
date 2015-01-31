@@ -3,13 +3,17 @@ find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system thread)
 
 # CV-A1 unintegrated code
-add_executable(el_processor el_processor.cpp LProcessor.cpp)
-target_link_libraries(el_processor ${OpenCV_LIBS})
+#add_executable(cv_a1 cv_a1.cpp LProcessor.cpp L.cpp)
+#target_link_libraries(cv_a1 ${OpenCV_LIBS})
 
 # CV-A2 unintegrated code
-add_executable(lawliet lawliet.cpp LDetector.cpp)
-target_link_libraries(lawliet ${OpenCV_LIBS})
+#add_executable(cv_a2 cv_a2.cpp LDetector.cpp L.cpp)
+#target_link_libraries(cv_a2 ${OpenCV_LIBS})
+
+# CV-A integrated code
+add_executable(cv_a cv_a.cpp LDetector.cpp LProcessor.cpp L.cpp)
+target_link_libraries(cv_a ${OpenCV_LIBS})
 
 # CV-B unintegrated code
-add_executable(network_test network_test.cpp NetworkController.cpp VideoDevice.cpp CmdLineInterface.cpp AppConfig.cpp GUIManager.cpp)
-target_link_libraries(network_test ${OpenCV_LIBS} ${Boost_LIBRARIES})
+add_executable(cv_b network_test.cpp NetworkController.cpp VideoDevice.cpp CmdLineInterface.cpp AppConfig.cpp GUIManager.cpp)
+target_link_libraries(cv_b ${OpenCV_LIBS} ${Boost_LIBRARIES})

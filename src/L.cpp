@@ -36,6 +36,12 @@ L::L(std::vector<cv::Point> p) {
 	cornerPoint = cv::Point(0, 0);
 	sidePoint = cv::Point(0, 0);
 	referencePoint = cv::Point(0, 0);
+	area = fabs(cv::contourArea(points, true));
+}
+
+double L::getArea()
+{
+	return area;
 }
 
 void L::setOrientation(bool o)
@@ -108,7 +114,7 @@ float L::getHorizontalLength()
 void L::determineCornerPoint()
 {
 	double maxLength = 0;
-	int indexCorner;
+	int indexCorner = 0;
 		for (unsigned i = 0; i < points.size(); ++i)
 		{
 			double tempLength = sqrt(pow(points.at(i).x, 2) + pow(points.at(i).y, 2));
@@ -123,7 +129,7 @@ void L::determineCornerPoint()
 void L::determineSidePoint() //swaps current corner point with the other bottom point
 {
 	double minLength = 6e6;
-	int indexPoint;
+	int indexPoint = 0;
 		for (unsigned i = 0; i < points.size(); ++i)
 		{
 			if (points.at(i).x != cornerPoint.x) //compare the x values to make sure it's not secretly the same point :O
@@ -141,7 +147,7 @@ void L::determineSidePoint() //swaps current corner point with the other bottom 
 cv::Point L::determinePointAbove(cv::Point lowerPoint)
 {
 	double minLength = 6e6;
-	int indexTop;
+	int indexTop = 0;
 		for (unsigned i = 0; i < points.size(); ++i)
 		{
 			if (points.at(i).y != lowerPoint.y) //compare the y values to make sure it's not secretly the same point :O

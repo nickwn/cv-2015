@@ -40,9 +40,9 @@ int main() {
 	secondL.push_back(cv::Point(327, 225));
 
 	LProcessor oak;
-	std::vector<std::vector<cv::Point> > points;
-	points.push_back(secondL);
-	points.push_back(firstL);
+	std::vector<L> points;
+	points.push_back(L(secondL));
+	points.push_back(L(firstL));
 	oak.determineL(points);
 	oak.determineAzimuth();
 	oak.determineDistance();

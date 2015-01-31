@@ -17,32 +17,32 @@
  *    along with FRC Team 3341 Targeting.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef LProcessor_hpp
-#define LProcessor_hpp
-
-#include <vector>
+#include <iostream>
 #include <opencv2/opencv.hpp>
 
+#include "LProcessor.hpp"
+#include "LDetector.hpp"
 #include "L.hpp"
 
-class LProcessor {
-public:
-	void determineL(std::vector<L>);
-	cv::Point determineCenter();
-	void determineDistance();
-	void determineAzimuth();
-	void outputData();
-	double getAzimuth();
-	double getDistance();
-private:
-	double azimuth;
-	double distanceFullHorizontal;
-	double distanceVertical;
-	double focalLength = 640;
-	double imgWidth = 640;
-	double imgHeight = 480;
-	L firstL;
-	L secondL;
-};
+int main() {
+	LDetector detector;
+	detector.elLoad(cv::imread("./img.jpg"));
+	detector.elSplit();
+	detector.elThresh();
+	detector.elContours();
+	detector.elFilter();
+	detector.largest2();
+	//detector.show();
+	//cv::waitKey(0);
+	std::vector<L> foundLs = detector.ArrayReturned();
+	//std::cout << foundLs.size() << std::endl;	
 
-#endif /* LProcessor_hpp */
+	LProcessor processor;
+	processor.determineL(foundLs);
+	processor.determineAzimuth();
+	processor.determineDistance();
+	//processor.outputData();
+	std::cout << "Distance: " << processor.getDistance() << std::endl;
+	std::cout << "Azimuth: " << processor.getAzimuth() << std::endl;
+	return 0;
+}
