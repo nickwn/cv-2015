@@ -22,60 +22,58 @@
 #include "LProcessor.hpp"
 #include "L.hpp"
 
-void LProcessor::determineL(std::vector<std::vector<cv::Point> > points){
-	firstL = L(points.at(0));
-	secondL = L(points.at(1));
-	firstL.configureL();
-	secondL.configureL();
+void LProcessor::determineL(std::vector<L> ls){
+	firstL = ls.at(0);
+	secondL = ls.at(1);
+	//firstL.configureL();
+//	std::cout << firstL.getHorizontalLength() << std::endl;
+//	std::cout << secondL.getHorizontalLength() << std::endl;
+	//
+	//secondL.configureL();
 }
 
-float LProcessor::getAzimuth()
+double LProcessor::getAzimuth()
 {
 	return azimuth;
 }
 
-float LProcessor::getDistanceFullHorizontal()
+double LProcessor::getDistance()
 {
-	return distanceFullHorizontal;
-}
-
-float LProcessor::getDistanceVertical()
-{
-	return distanceVertical;
+	return fmax(distanceFullHorizontal, distanceVertical);
 }
 
 
 cv::Point LProcessor::determineCenter()
 {
 	std::vector<cv::Point> fPoints = firstL.getPoints();
-	float x1 = 0;
-	float y1 = 0;
-	for(int i = 0; i < fPoints.size(); i++)
+	double x1 = 0;
+	double y1 = 0;
+	for(unsigned i = 0; i < fPoints.size(); i++)
 	{
 		x1 += fPoints.at(i).x;
 		y1 += fPoints.at(i).y;
 	}
-	float avgX1 = x1/fPoints.size();
-	float avgY1 = y1/fPoints.size();
+	double avgX1 = x1/fPoints.size();
+	double avgY1 = y1/fPoints.size();
 	std::vector<cv::Point> sPoints = secondL.getPoints();
-	float x2 = 0;
-	float y2 = 0;
-	for(int i = 0; i < sPoints.size(); i++)
+	double x2 = 0;
+	double y2 = 0;
+	for(unsigned i = 0; i < sPoints.size(); i++)
 	{
 		x2 += sPoints.at(i).x;
 		y2 += sPoints.at(i).y;
 	}
-	float avgX2 = x2/sPoints.size();
-	float avgY2 = y2/sPoints.size();
-	float avgX = (avgX1 + avgX2)/2;
-	float avgY = (avgY1 + avgY2)/2;
+	double avgX2 = x2/sPoints.size();
+	double avgY2 = y2/sPoints.size();
+	double avgX = (avgX1 + avgX2)/2;
+	double avgY = (avgY1 + avgY2)/2;
 	return cv::Point(avgX, avgY);
 }
 
 
 void LProcessor::determineAzimuth()
 {
-	azimuth = (((float)imgWidth/2.0)-(float)determineCenter().x)/ focalLength;
+	azimuth = (((double)imgWidth/2.0)-(double)determineCenter().x)/ focalLength;
 }
 
 void LProcessor::determineDistance()
@@ -84,9 +82,9 @@ void LProcessor::determineDistance()
  Currently the distance is calculated using the horizontal length between the side points of each L.
  Additionally, length is calculated using the shorter vertical distance of both L's.
  */
-float lengthFullHorizontal = sqrt(pow(firstL.getSidePoint().x - secondL.getSidePoint().x,2) + pow(firstL.getSidePoint().y - secondL.getSidePoint().y,2));
+double lengthFullHorizontal = sqrt(pow(firstL.getSidePoint().x - secondL.getSidePoint().x,2) + pow(firstL.getSidePoint().y - secondL.getSidePoint().y,2));
 distanceFullHorizontal = 0.425458 / lengthFullHorizontal * focalLength;
-float lengthVertical = (firstL.getVerticalLength() + secondL.getVerticalLength()) / 2; //fmin(firstL.getVerticalLength(), secondL.getVerticalLength());
+double lengthVertical = (firstL.getVerticalLength() + secondL.getVerticalLength()) / 2; //fmin(firstL.getVerticalLength(), secondL.getVerticalLength());
 distanceVertical = 0.1778 / lengthVertical * focalLength;
 }
 

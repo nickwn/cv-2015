@@ -26,7 +26,7 @@
 int main(int argc, char* argv[])
 {
 	LDetector what = LDetector();
-	what.elLoad();
+	what.elLoad(cv::imread("./img.jpg"));
 	what.elSplit();
 	what.elThresh();
 	what.elContours();

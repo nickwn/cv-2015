@@ -39,6 +39,7 @@ public:
 	void determineSidePoint(); //determines the side point and swaps with the corner point if right facing
 	void calculateLength();
 	bool getOrientation();
+	double getArea();
 	std::vector<cv::Point> getPoints();
 private:
 	std::vector<cv::Point> points;
@@ -47,6 +48,7 @@ private:
 	cv::Point cornerPoint; //the point of the outer corner
 	cv::Point sidePoint; //the other bottom point
 	cv::Point referencePoint;
+	double area;
 	float verticalLength; //length between topPoint and cornerPoint
 	float horizontalLength; //length between sidePoint and cornerPoint
 };

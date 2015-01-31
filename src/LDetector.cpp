@@ -29,10 +29,10 @@ LDetector::LDetector() {
 
 }
 
-void LDetector::elLoad()
+void LDetector::elLoad(cv::Mat foto)
 {
-	image = cv::imread("/home/heidi/Downloads/2FL.jpg");
-	cv::imshow("OriginalImage", image);
+	image = foto;
+	//cv::imshow("OriginalImage", image);
 }
 
 void LDetector::elSplit()
@@ -48,32 +48,35 @@ void LDetector::elThresh()
 	cv::threshold(a[0], hueUpper, 50, 255, CV_THRESH_BINARY_INV);
 	cv::Mat hueBoth = hueLower & hueUpper;
 	//hueBoth is all greens
-	cv::imshow("hue", hueBoth);
+	//cv::imshow("hue", hueBoth);
 
 	cv::threshold(a[2], valUp, 225, 255, CV_THRESH_BINARY);
 	cv::threshold(a[2], valLow, 0, 255, CV_THRESH_BINARY);
 	cv::Mat valBoth = valUp & valLow;
-	cv::imshow("val", valBoth);
+	//cv::imshow("val", valBoth);
 	//valBoth is all brights
 
 	combine = hueBoth & valBoth; //combine is final thresholded image
-	cv::imshow("all.png", combine);
+	//cv::imshow("all.png", combine);
 }
 void LDetector::elFilter()
 {
 	for (unsigned j = 0; j < all.size(); ++j)
 	{
-		L L1 = L(all.at(j));
-		L1.determineTopPoint();
+		
+		all.at(j).configureL();
+ 		L L1 = all.at(j);
 		unsigned i = j+1;
 		while(i < all.size())
 		{
-			L L2 = L(all.at(i));
-			L2.determineTopPoint();
+			all.at(i).configureL();
+			L L2 = all.at(i);
+			
 			if(L1.getTopPoint().x < L2.getTopPoint().x + 10 &&
 					L1.getTopPoint().x > L2.getTopPoint().x - 10 &&
 					L1.getTopPoint().y < L2.getTopPoint().x + 10 &&
-					L1.getTopPoint().y > L2.getTopPoint().x - 10)
+					L1.getTopPoint().y > L2.getTopPoint().x - 10 && 
+					L1.getOrientation() == L2.getOrientation())
 			{
 				all.erase(all.begin()+i);
 				//CODE TO REMOVE L2
@@ -128,7 +131,10 @@ void LDetector::elContours()
 				if(approx.size() == 6
 						&& LosAngles(approx) == true
 						)
-					all.push_back(approx);
+					{
+					L el = L(approx);
+					all.push_back(el);
+					}
 				}
 }
 
@@ -152,16 +158,16 @@ bool LDetector::LosAngles(std::vector<cv::Point> vect)
 		if (fabs(elAngles(vect.at(a), vect.at(c), vect.at(b))) < .2)
 		{
 			wat.push_back(true);
-			std::cout << "tru" << std::endl;
+	//		std::cout << "tru" << std::endl;
 		}
 		else
 		{
 			wat.push_back(false);
-			std::cout << "no" << std::endl;
+	//		std::cout << "no" << std::endl;
 		}
 		a++;
 	}
-	std::cout << "\n" << std::endl;
+	//std::cout << "\n" << std::endl;
 	unsigned y = 0;
 	bool returned = true;
 	while (y < wat.size())
@@ -179,37 +185,40 @@ double LDetector::elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt0)
 	double dx2 = pt2.x - pt0.x;
 	double dy2 = pt2.y - pt0.y;
 	double bleh = (dx1 * dx2 + dy1 * dy2) / sqrt((dx1 * dx1 + dy1 * dy1) * (dx2 * dx2 + dy2 * dy2) + 1e-10);
-	std::cout << bleh << std::endl;
+	//std::cout << bleh << std::endl;
 	return bleh;
 
 }
-void LDetector::show()
+ void LDetector::show()
 {
 
 	for (size_t i = 0; i < all.size(); i++)
 	{
-
-		const cv::Point* p = &all.at(i).at(0);
-		int n = (int) all.at(i).size();
+		std::vector<cv::Point> temp = all.at(i).getPoints();
+		//std::cout << all.at(i).getArea() << std::endl;
+		const cv::Point* p = &temp.at(0);
+		int n = (int) temp.size();
 		cv::polylines(image, &p, &n, 1, true, cv::Scalar(0,0,255), 1, CV_AA);
 
 
 	}
+
 	cv::imshow("yes.jpg",image);
+	
 }
 
 void LDetector::largest2()
 {
-	std::vector<std::vector<cv::Point> > array;
+	std::vector<L> array;
 	int count = 0;
 	while (count < 2)
 	{
 	int largeItr = 0;
 	double largeSize = 0;
 
-	for(int x = 0; x < all.size(); x++)
+	for(unsigned x = 0; x < all.size(); x++)
 	{
-		L temp = L(all.at(x));
+		L temp = all.at(x);
 		if (temp.getArea() > largeSize)
 		{
 			largeItr = x;
@@ -222,5 +231,11 @@ void LDetector::largest2()
 
 	all = array;
 
+
+}
+
+std::vector<L> LDetector::ArrayReturned()
+{
+ return all;
 
 }
