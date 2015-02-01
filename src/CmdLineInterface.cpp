@@ -56,6 +56,7 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
 			break;
 		case 'd':
 			config.setDeviceID(boost::lexical_cast<int>(optarg));
+            config.setIsFile(0);
 			config.setIsDevice(1);
 			break;
 		case 'f':
