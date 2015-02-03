@@ -50,8 +50,8 @@ void LDetector::elThresh()
 	//hueBoth is all greens
 	//cv::imshow("hue", hueBoth);
 
-	cv::threshold(a[2], valUp, 225, 255, CV_THRESH_BINARY);
-	cv::threshold(a[2], valLow, 0, 255, CV_THRESH_BINARY);
+	cv::threshold(a[2], valLow, 225, 255, CV_THRESH_BINARY);
+	cv::threshold(a[2], valUp, 255, 255, CV_THRESH_BINARY_INV);
 	cv::Mat valBoth = valUp & valLow;
 	//cv::imshow("val", valBoth);
 	//valBoth is all brights
