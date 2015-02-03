@@ -92,11 +92,11 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
 	}
 
     config.setIsHeadless(isHeadless);
-    if(isHeadless)
+    /*if(isHeadless)
         std::cout << "Headless mode\n";
-
+*/
 	config.setIsNetworking(isNetworking);
-    if(!isNetworking)
+    /*if(!isNetworking)
         std::cout << "No networking mode\n";
 
     if(config.getIsDevice())
@@ -106,6 +106,7 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
     if(config.getIsFile())
         std::cout << "File mode: using " << 
             config.getFileName() << std::endl;
+            */
 }
 
 AppConfig CmdLineInterface::getConfig()
