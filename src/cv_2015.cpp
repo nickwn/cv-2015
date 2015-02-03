@@ -12,13 +12,18 @@
 
 int main(int argc, char* argv[])
 {
+    // get command line interface condig options
     CmdLineInterface interface(argc, argv);
     AppConfig config = interface.getConfig();
+
     VideoDevice camera;
+    LProcessor processor;
+    NetworkController networkController;
+
     if(config.getIsDevice())
+        //init camera
         camera.startCapture(config.getDeviceID());
 
-    NetworkController networkController;
     if(config.getIsNetworking())
     {
         //init networking
@@ -26,8 +31,9 @@ int main(int argc, char* argv[])
     }
 
     //continuous server loop
-    while(true)
+    do
     {
+        std::cout << "In main loop\n";
 
         if(config.getIsNetworking())
             networkController.waitForPing();
@@ -53,7 +59,6 @@ int main(int argc, char* argv[])
         //std::cout << foundLs.size() << std::endl;	
 
         bool found = (foundLs.size() != 0);
-        LProcessor processor;
 
         if(found)
         {
@@ -76,6 +81,8 @@ int main(int argc, char* argv[])
             networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
         }
     }
+    while(config.getIsDevice());
+
 	return 0;
 }
 

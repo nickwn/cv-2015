@@ -26,18 +26,18 @@ class AppConfig
 {
 public:
 	AppConfig();
-	std::string getFileName();
 	void setFileName(std::string fileName);
-	int getDeviceID();
 	void setDeviceID(int deviceID);
-	int getIsFile();
 	void setIsFile(int isFile);
-	int getIsDevice();
 	void setIsDevice(int isDevice);
-	int getIsHeadless();
 	void setIsHeadless(int isHeadless);
-	int getIsNetworking();
 	void setIsNetworking(int isNetworking);
+	int getDeviceID();
+	int getIsFile();
+	int getIsDevice();
+	int getIsHeadless();
+	int getIsNetworking();
+	std::string getFileName();
 private:
 	std::string fileName;
 	int deviceID;
