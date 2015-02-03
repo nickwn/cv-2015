@@ -5,6 +5,7 @@
 #include "NetworkController.hpp"
 #include "CmdLineInterface.hpp"
 #include "AppConfig.hpp"
+#include "GUIManager.hpp"
 #include "VideoDevice.hpp"
 #include "LDetector.hpp"
 #include "LProcessor.hpp"
@@ -16,22 +17,26 @@ int main(int argc, char* argv[])
     CmdLineInterface interface(argc, argv);
     AppConfig config = interface.getConfig();
 
+    GUIManager gui;
     VideoDevice camera;
     LProcessor processor;
     NetworkController networkController;
 
+    //init camera
     if(config.getIsDevice())
-        //init camera
-        camera.startCapture(config.getDeviceID());
-
-    if(config.getIsNetworking())
     {
-        //init networking
-        networkController.startServer();
+        camera.startCapture(config.getDeviceID());
+        std::cout << "Camera ready!\n";
     }
 
+    //init networking
+    if(config.getIsNetworking())
+        networkController.startServer();
+
+    if(!config.getIsHeadless())
+        gui.init();
+
     //continuous server loop
-    int counter = 0;
     do
     {
         //std::cout << "ran " << counter << " times without crashing!\n";
@@ -42,13 +47,23 @@ int main(int argc, char* argv[])
 
         LDetector detector;
 
+        cv::Mat image;
         if(config.getIsFile())
         {
-            detector.elLoad(cv::imread(config.getFileName()));
+            image = cv::imread(config.getFileName());
         }
         else
         {
-            detector.elLoad(camera.getImage());
+            image = camera.getImage();
+            std::cout << "captured image\n";
+        }
+
+        detector.elLoad(image);
+        
+        if(!config.getIsHeadless())
+        {
+            gui.setImage(image);
+            gui.show();
         }
 
         detector.elSplit();
@@ -61,6 +76,9 @@ int main(int argc, char* argv[])
         //std::cout << foundLs.size() << std::endl;	
 
         int numLsFound = (foundLs.size());
+
+        if(!config.getIsHeadless())
+            gui.setImageText("Found " + boost::lexical_cast<std::string>(numLsFound) + " L's");
 
         if(numLsFound != 0)
         {
@@ -81,9 +99,10 @@ int main(int argc, char* argv[])
                     + boost::lexical_cast<std::string> (azimuth));
             }
         }
-        else if(config.getIsNetworking())
+        else 
         {
-            networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
+            if(config.getIsNetworking())
+                networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
         }
     }
     while(config.getIsDevice());
