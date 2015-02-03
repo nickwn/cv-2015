@@ -36,18 +36,23 @@
 NetworkController::NetworkController()
 {
 	portNumber = 3341;
+    isInitialized = false;
 }
 
 NetworkController::~NetworkController()
 {
-	delete socket;
-	delete acceptor;
-	delete io_service;
+    if(isInitialized)
+    {
+        delete socket;
+        delete acceptor;
+        delete io_service;
+    }
 }
 
 void NetworkController::startServer()
 {
-	try {
+	try 
+    {
 		io_service = new boost::asio::io_service();
 		acceptor = new boost::asio::ip::tcp::acceptor(*io_service, 
             boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), portNumber));
@@ -55,6 +60,7 @@ void NetworkController::startServer()
 		acceptor->accept(*socket);
 		boost::asio::socket_base::keep_alive option(true);
 		socket->set_option(option);
+        isInitialized = true;
 	}
 	catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;

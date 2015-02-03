@@ -47,6 +47,7 @@ class VideoDevice
         cv::Mat image;
         int isFinished;
         int isReady;
+        bool isInitialized;
 };
 
 #endif /* VideoDevice_hpp */

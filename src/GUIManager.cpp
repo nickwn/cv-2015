@@ -75,8 +75,11 @@ void GUIManager::setImageText(std::string imageText)
 }
 
 */
-void GUIManager::show()
+void GUIManager::show(bool isFile)
 {
 	cv::imshow("FRC Team 3341 Targeting", image);
-    cv::waitKey(1);
+    if(isFile)
+        cv::waitKey(0);
+    else
+        cv::waitKey(10);
 }

@@ -63,11 +63,6 @@ int main(int argc, char* argv[])
         detector.elThresh();
         detector.elContours();
         detector.elFilter();
-        if(!config.getIsHeadless())
-        {
-            gui.setImage(detector.show());
-            gui.show();
-        }
         std::vector<L> foundLs = detector.ArrayReturned();
         //detector.show();
         //cv::waitKey(0);
@@ -76,7 +71,11 @@ int main(int argc, char* argv[])
         int numLsFound = (foundLs.size());
 
         if(!config.getIsHeadless())
+        {
+            gui.setImage(detector.show());
             gui.setImageText("Found " + boost::lexical_cast<std::string>(numLsFound) + " L's");
+            gui.show(config.getIsFile());
+        }
 
         if(numLsFound != 0)
         {
