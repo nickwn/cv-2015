@@ -31,9 +31,11 @@ int main(int argc, char* argv[])
     }
 
     //continuous server loop
+    int counter = 0;
     do
     {
-        std::cout << "In main loop\n";
+        //std::cout << "ran " << counter << " times without crashing!\n";
+        //counter ++;
 
         if(config.getIsNetworking())
             networkController.waitForPing();
@@ -58,11 +60,14 @@ int main(int argc, char* argv[])
         //cv::waitKey(0);
         //std::cout << foundLs.size() << std::endl;	
 
-        bool found = (foundLs.size() != 0);
+        int numLsFound = (foundLs.size());
 
-        if(found)
+        if(numLsFound != 0)
         {
-            detector.largest2();
+            std::cout << "Found " << foundLs.size() << " L's!" << std::endl;
+            if(numLsFound >= 2)
+                detector.largest2();
+
             processor.determineL(foundLs);
             processor.determineAzimuth();
             processor.determineDistance();
