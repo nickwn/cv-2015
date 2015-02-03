@@ -31,7 +31,7 @@ public:
 	void elLoad(cv::Mat foto);
 	void elSplit();
 	void elThresh();
-	void show();
+	cv::Mat show();
 	void elFilter();
 	void elContours();
 	void largest2();

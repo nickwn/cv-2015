@@ -189,7 +189,7 @@ double LDetector::elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt0)
 	return bleh;
 
 }
- void LDetector::show()
+ cv::Mat LDetector::show()
 {
 
 	for (size_t i = 0; i < all.size(); i++)
@@ -203,7 +203,7 @@ double LDetector::elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt0)
 
 	}
 
-	cv::imshow("yes.jpg",image);
+	return image;
 	
 }
 

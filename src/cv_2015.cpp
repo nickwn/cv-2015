@@ -55,21 +55,19 @@ int main(int argc, char* argv[])
         else
         {
             image = camera.getImage();
-            std::cout << "captured image\n";
         }
 
         detector.elLoad(image);
-        
-        if(!config.getIsHeadless())
-        {
-            gui.setImage(image);
-            gui.show();
-        }
 
         detector.elSplit();
         detector.elThresh();
         detector.elContours();
         detector.elFilter();
+        if(!config.getIsHeadless())
+        {
+            gui.setImage(detector.show());
+            gui.show();
+        }
         std::vector<L> foundLs = detector.ArrayReturned();
         //detector.show();
         //cv::waitKey(0);
