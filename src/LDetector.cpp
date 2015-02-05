@@ -224,7 +224,10 @@ void LDetector::largest2()
 			largeItr = x;
 		}
 	}
-	array.push_back(all.at(largeItr));
+	if (largeSize > 1000)
+	{
+		array.push_back(all.at(largeItr));
+	}
 	all.erase(all.begin() + largeItr);
 	count++;
 	}
