@@ -94,7 +94,7 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
 	}
 
     config.setIsHeadless(isHeadless);
-
+    config.setIsDebug(isDebug);
 	config.setIsNetworking(isNetworking);
 
     if(isDebug)

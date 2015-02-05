@@ -13,7 +13,7 @@
 
 int main(int argc, char* argv[])
 {
-    // get command line interface condig options
+    // get command line interface config options
     CmdLineInterface interface(argc, argv);
     AppConfig config = interface.getConfig();
 
@@ -26,7 +26,8 @@ int main(int argc, char* argv[])
     if(config.getIsDevice())
     {
         camera.startCapture(config.getDeviceID());
-        std::cout << "Camera ready!\n";
+        if(config.getIsDebug())
+            std::cout << "Camera ready!\n";
     }
 
     //init networking
@@ -39,9 +40,6 @@ int main(int argc, char* argv[])
     //continuous server loop
     do
     {
-        //std::cout << "ran " << counter << " times without crashing!\n";
-        //counter ++;
-
         if(config.getIsNetworking())
             networkController.waitForPing();
 
@@ -54,7 +52,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            image = camera.getImage();
+            image = camera.getImage(config.getIsDebug());
         }
 
         detector.elLoad(image);
@@ -64,30 +62,24 @@ int main(int argc, char* argv[])
         detector.elContours();
         detector.elFilter();
         std::vector<L> foundLs = detector.ArrayReturned();
-        //detector.show();
-        //cv::waitKey(0);
-        //std::cout << foundLs.size() << std::endl;	
 
         int numLsFound = (foundLs.size());
 
-        if(!config.getIsHeadless())
+        if(numLsFound >= 2)
         {
-            gui.setImage(detector.show());
-            gui.setImageText("Found " + boost::lexical_cast<std::string>(numLsFound) + " L's");
-            gui.show(config.getIsFile());
-        }
-
-        if(numLsFound != 0)
-        {
-            std::cout << "Found " << foundLs.size() << " L's!" << std::endl;
-            if(numLsFound >= 2)
-                detector.largest2();
-
+            if(config.getIsDebug())
+                std::cout << "Found " << foundLs.size() << " L's!" << std::endl;
+            detector.largest2();
             processor.determineL(foundLs);
             processor.determineAzimuth();
             processor.determineDistance();
             double azimuth = processor.getAzimuth();
             double distance = processor.getDistance();
+
+            if(config.getIsDebug())
+            {
+                processor.outputData();
+            }
 
             if(config.getIsNetworking())
             {
@@ -95,11 +87,19 @@ int main(int argc, char* argv[])
                     + boost::lexical_cast<std::string> (distance) + std::string(";") 
                     + boost::lexical_cast<std::string> (azimuth));
             }
+
         }
         else 
         {
             if(config.getIsNetworking())
                 networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
+        }
+
+        if(!config.getIsHeadless())
+        {
+            gui.setImage(detector.show());
+            gui.setImageText("Found " + boost::lexical_cast<std::string>(numLsFound) + " L's");
+            gui.show(config.getIsFile());
         }
     }
     while(config.getIsDevice());

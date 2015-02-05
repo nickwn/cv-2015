@@ -54,29 +54,15 @@ void GUIManager::setImage(cv::Mat inputImage)
 
 void GUIManager::setImageText(std::string imageText)
 {
-	cv::putText(image, imageText, cv::Point(0, image.rows - 5), cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(0.0, 255.0, 0.0, 0.0), 1);
+	cv::putText(image, imageText, cv::Point(0, image.rows - 5), 
+        cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(0.0, 255.0, 0.0, 0.0),
+        1);
 }
 
-/*void GUIManager::show(const std::vector<std::vector<cv::Point> > &allRectangles, const std::vector<std::vector<cv::Point> >& finalRectangles)
-{
-	for (size_t i = 0; i < allRectangles.size(); i++) {
-                const cv::Point* p = &allRectangles.at(i).at(0);
-                int n = (int)allRectangles.at(i).size();
-		cv::polylines(image, &p, &n, 1, true, cv::Scalar(0, 255, 0), 1, CV_AA);
-        }
-	
-        for (size_t i = 0; i < finalRectangles.size(); ++i) {
-                const cv::Point* p = &finalRectangles.at(i).at(0);
-                int n = (int)finalRectangles.at(i).size();
-		cv::polylines(image, &p, &n, 1, true, cv::Scalar(255, 0, 0), 1, CV_AA);
-        }
-	
-	cv::imshow("FRC Team 3341 Targeting" , image);
-}
-
-*/
 void GUIManager::show(bool isFile)
 {
+    //isFile determines if image should be shown indefinitely
+    //in File Mode, the main loop only runs once rather than continuously
 	cv::imshow("FRC Team 3341 Targeting", image);
     if(isFile)
         cv::waitKey(0);

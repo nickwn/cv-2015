@@ -33,7 +33,7 @@ class VideoDevice
         // Methods
         VideoDevice();
         void startCapture(int devID);
-        cv::Mat getImage();
+        cv::Mat getImage(bool idDebug);
         ~VideoDevice();
 
     private:

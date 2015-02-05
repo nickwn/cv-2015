@@ -49,10 +49,11 @@ void VideoDevice::startCapture(int deviceID)
     isInitialized = true;
 }
 
-cv::Mat VideoDevice::getImage()
+cv::Mat VideoDevice::getImage(bool isDebug)
 {
-    while (! isReady)
+    if(isDebug)
         std::cout << "Waiting for camera..." << std::endl;
+    while (! isReady);
     return image;
 }
 
