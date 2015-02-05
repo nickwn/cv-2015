@@ -39,7 +39,7 @@ double LProcessor::getAzimuth()
 
 double LProcessor::getDistance()
 {
-	return fmax(distanceFullHorizontal, distanceVertical);
+	return fmin(distanceFullHorizontal, distanceVertical);
 }
 
 
