@@ -18,6 +18,7 @@
 */
 
 #include <iostream>
+#include <math.h>
 
 #include "LProcessor.hpp"
 #include "L.hpp"
@@ -74,6 +75,7 @@ cv::Point LProcessor::determineCenter()
 void LProcessor::determineAzimuth()
 {
 	azimuth = (((double)imgWidth/2.0)-(double)determineCenter().x)/ focalLength;
+    azimuth *= 180.0 / M_PI;
 }
 
 void LProcessor::determineDistance()
