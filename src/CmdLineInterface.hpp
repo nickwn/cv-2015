@@ -24,11 +24,12 @@
 
 class CmdLineInterface
 {
-public:
-	CmdLineInterface(int argc, char *argv[]);
-	AppConfig getConfig();
-private:
-	AppConfig config;	
+    private:
+        //void printUsage(std::string name);
+        AppConfig config;	
+    public:
+        CmdLineInterface(int argc, char *argv[]);
+        AppConfig getConfig();
 };
 
 #endif /* CmdLineInterface_hpp */

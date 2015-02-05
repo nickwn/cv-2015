@@ -33,7 +33,7 @@ class VideoDevice
         // Methods
         VideoDevice();
         void startCapture(int devID);
-        cv::Mat getImage();
+        cv::Mat getImage(bool idDebug);
         ~VideoDevice();
 
     private:
@@ -47,6 +47,7 @@ class VideoDevice
         cv::Mat image;
         int isFinished;
         int isReady;
+        bool isInitialized;
 };
 
 #endif /* VideoDevice_hpp */

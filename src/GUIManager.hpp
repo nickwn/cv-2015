@@ -21,19 +21,23 @@
 #define GUIManager_hpp
 
 #include <string>
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 class GUIManager
 {
-public:
-    GUIManager(); // Constructor
-    void init(); // Initialize GUI
-	void setImage(cv::Mat image);
-	void setImageText(std::string imageText);
-    void show(const std::vector<std::vector<cv::Point> > &allRectangles, const std::vector<std::vector<cv::Point> > &finalRectangles); // Show Image
-	void show(); // Show Image
+    public:
+        GUIManager(); // Constructor
+        void init(); // Initialize GUI
+        void setImage(cv::Mat image);
+        void setImageText(std::string imageText);
+        //void show(const std::vector<std::vector<cv::Point> > &allRectangles, 
+        //    const std::vector<std::vector<cv::Point> > &finalRectangles); // Show Image
+        void show(bool isFile); // Show Image
 
-private:
-	cv::Mat image;
+    private:
+        cv::Mat image;
 };
 
 #endif /* GUIManager_hpp */

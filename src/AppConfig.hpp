@@ -24,27 +24,30 @@
 
 class AppConfig
 {
-public:
-	AppConfig();
-	std::string getFileName();
-	void setFileName(std::string fileName);
-	int getDeviceID();
-	void setDeviceID(int deviceID);
-	int getIsFile();
-	void setIsFile(int isFile);
-	int getIsDevice();
-	void setIsDevice(int isDevice);
-	int getIsHeadless();
-	void setIsHeadless(int isHeadless);
-	int getIsNetworking();
-	void setIsNetworking(int isNetworking);
-private:
-	std::string fileName;
-	int deviceID;
-	int isFile;
-	int isDevice;
-	int isHeadless;
-	int isNetworking;
+    public:
+        AppConfig();
+        void setFileName(std::string fileName);
+        void setDeviceID(int deviceID);
+        void setIsFile(int isFile);
+        void setIsDevice(int isDevice);
+        void setIsHeadless(int isHeadless);
+        void setIsNetworking(int isNetworking);
+        void setIsDebug(int debug);
+        int getDeviceID();
+        int getIsFile();
+        int getIsDevice();
+        int getIsHeadless();
+        int getIsNetworking();
+        int getIsDebug();
+        std::string getFileName();
+    private:
+        std::string fileName;
+        int deviceID;
+        int isFile;
+        int isDevice;
+        int isHeadless;
+        int isNetworking;
+        int isDebug;
 };
 
 #endif /* AppConfig_hpp */

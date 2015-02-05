@@ -39,18 +39,21 @@ VideoDevice::VideoDevice()
     // Variable Declarations
     isFinished = 0;
     isReady = 0;
+    isInitialized = false;
 }
 
 void VideoDevice::startCapture(int deviceID)
 {
     initCamera(deviceID);
     captureThread = new std::thread(&VideoDevice::captureFromCamera, this);
+    isInitialized = true;
 }
 
-cv::Mat VideoDevice::getImage()
+cv::Mat VideoDevice::getImage(bool isDebug)
 {
-    while (! isReady)
+    if(isDebug)
         std::cout << "Waiting for camera..." << std::endl;
+    while (! isReady);
     return image;
 }
 
@@ -87,6 +90,10 @@ void VideoDevice::captureFromCamera()
 VideoDevice::~VideoDevice()
 {
     isFinished = 1;
-    captureThread->join();
-    delete captureThread;
+    //prevent deleting unititialized pointers
+    if(isInitialized)
+    {
+        captureThread->join();
+        delete captureThread;
+    }
 }

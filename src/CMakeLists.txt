@@ -15,5 +15,9 @@ add_executable(cv_a cv_a.cpp LDetector.cpp LProcessor.cpp L.cpp)
 target_link_libraries(cv_a ${OpenCV_LIBS})
 
 # CV-B unintegrated code
-add_executable(cv_b network_test.cpp NetworkController.cpp VideoDevice.cpp CmdLineInterface.cpp AppConfig.cpp GUIManager.cpp)
+add_executable(cv_b cv_b.cpp NetworkController.cpp VideoDevice.cpp CmdLineInterface.cpp AppConfig.cpp GUIManager.cpp)
 target_link_libraries(cv_b ${OpenCV_LIBS} ${Boost_LIBRARIES})
+
+# CV-2015 integrated code
+add_executable(cv_2015 cv_2015.cpp LDetector.cpp LProcessor.cpp L.cpp NetworkController.cpp VideoDevice.cpp CmdLineInterface.cpp AppConfig.cpp GUIManager.cpp)
+target_link_libraries(cv_2015 ${OpenCV_LIBS} ${Boost_LIBRARIES})

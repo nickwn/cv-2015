@@ -27,7 +27,8 @@ AppConfig::AppConfig() :
 	isFile(0),
 	isDevice(0),
 	isHeadless(0),
-	isNetworking(1)
+	isNetworking(1),
+    isDebug(0)
 {
 }
 
@@ -62,6 +63,11 @@ int AppConfig::getIsNetworking()
 	return isNetworking;
 }
 
+int AppConfig::getIsDebug()
+{
+    return isDebug;
+}
+
 // Setters
 void AppConfig::setFileName(std::string inputFileName)
 {
@@ -91,4 +97,9 @@ void AppConfig::setIsHeadless(int inputIsHeadless)
 void AppConfig::setIsNetworking(int inputIsNetworking)
 {
 	isNetworking = inputIsNetworking;
+}
+
+void AppConfig::setIsDebug(int debug)
+{
+    isDebug = debug;
 }
