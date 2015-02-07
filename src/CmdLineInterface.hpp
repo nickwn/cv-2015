@@ -26,7 +26,7 @@ class CmdLineInterface
 {
     private:
         //void printUsage(std::string name);
-        AppConfig config;	
+        AppConfig config;
     public:
         CmdLineInterface(int argc, char *argv[]);
         AppConfig getConfig();

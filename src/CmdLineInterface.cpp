@@ -38,64 +38,64 @@ void printUsage(std::string name)
 
 CmdLineInterface::CmdLineInterface(int argc, char *argv[])
 {
-	int isHeadless = 0;
-	int isNetworking = 1;
+    int isHeadless = 0;
+    int isNetworking = 1;
     int isDebug = 0;
 
-	while (true) {
-		static struct option long_options[] = {
-			{"headless", no_argument, &isHeadless, 1},
-			{"no-networking", no_argument, &isNetworking, 0},
+    while (true) {
+        static struct option long_options[] = {
+            {"headless", no_argument, &isHeadless, 1},
+            {"no-networking", no_argument, &isNetworking, 0},
             {"debug", no_argument, &isDebug, 1},
-			{"device", required_argument, 0, 'd'},
-			{"file", required_argument, 0, 'f'},
-			{0, 0, 0, 0}
-		};
+            {"device", required_argument, 0, 'd'},
+            {"file", required_argument, 0, 'f'},
+            {0, 0, 0, 0}
+        };
 
-		int option_index = 0;
-		int c = getopt_long(argc, argv, "d:f:", long_options, &option_index);
+        int option_index = 0;
+        int c = getopt_long(argc, argv, "d:f:", long_options, &option_index);
 
-		if (c == -1) // End of Options
-			break;
+        if (c == -1) // End of Options
+            break;
 
-		switch (c) {
-		case 0:
-			break;
-		case 'd':
+        switch (c) {
+        case 0:
+            break;
+        case 'd':
             if(config.getIsFile())
             {
                 printUsage(argv[0]);
                 exit(1);
             }
-			config.setDeviceID(boost::lexical_cast<int>(optarg));
-			config.setIsDevice(1);
-			break;
-		case 'f':
+            config.setDeviceID(boost::lexical_cast<int>(optarg));
+            config.setIsDevice(1);
+            break;
+        case 'f':
             if(config.getIsDevice())
             {
                 printUsage(argv[0]);
                 exit(1);
             }
-			config.setFileName(boost::lexical_cast<std::string>(optarg));
-			config.setIsFile(1);
-			break;
-		case '?':
-			exit(127);
-			break;
-		default:
-			abort();
-		}
-	}
+            config.setFileName(boost::lexical_cast<std::string>(optarg));
+            config.setIsFile(1);
+            break;
+        case '?':
+            exit(127);
+            break;
+        default:
+            abort();
+        }
+    }
 
-	if (! config.getIsFile() && ! config.getIsDevice()) 
+    if (! config.getIsFile() && ! config.getIsDevice()) 
     {
         printUsage(argv[0]);
-		exit(1);
-	}
+        exit(1);
+    }
 
     config.setIsHeadless(isHeadless);
     config.setIsDebug(isDebug);
-	config.setIsNetworking(isNetworking);
+    config.setIsNetworking(isNetworking);
 
     if(isDebug)
     {
@@ -117,6 +117,6 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
 
 AppConfig CmdLineInterface::getConfig()
 {
-	return config;
+    return config;
 }
 

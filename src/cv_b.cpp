@@ -10,7 +10,7 @@ int main()
 {
     bool found = true;
     double distance = 0.3, azimuth = 0.1;
-	std::cout << "Hi" << std::endl;
+    std::cout << "Hi" << std::endl;
     
     //init networking
     NetworkController networkController;
@@ -19,7 +19,6 @@ int main()
     //continuous server loop
     while(true)
     {
-    
         networkController.waitForPing();
         if(found)
         {
@@ -36,6 +35,6 @@ int main()
         azimuth += 0.05;
         found = !found;
     }
-	return 0;
+    return 0;
 }
 

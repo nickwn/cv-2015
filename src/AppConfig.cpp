@@ -23,11 +23,11 @@
 #include "AppConfig.hpp"
 
 AppConfig::AppConfig() :
-	deviceID(0),
-	isFile(0),
-	isDevice(0),
-	isHeadless(0),
-	isNetworking(1),
+    deviceID(0),
+    isFile(0),
+    isDevice(0),
+    isHeadless(0),
+    isNetworking(1),
     isDebug(0)
 {
 }
@@ -35,32 +35,32 @@ AppConfig::AppConfig() :
 // Getters
 std::string AppConfig::getFileName()
 {
-	return fileName;
+    return fileName;
 }
 
 int AppConfig::getDeviceID()
 {
-	return deviceID;
+    return deviceID;
 }
 
 int AppConfig::getIsFile()
 {
-	return isFile;
+    return isFile;
 }
 
 int AppConfig::getIsDevice()
 {
-	return isDevice;
+    return isDevice;
 }
 
 int AppConfig::getIsHeadless()
 {
-	return isHeadless;
+    return isHeadless;
 }
 
 int AppConfig::getIsNetworking()
 {
-	return isNetworking;
+    return isNetworking;
 }
 
 int AppConfig::getIsDebug()
@@ -71,32 +71,32 @@ int AppConfig::getIsDebug()
 // Setters
 void AppConfig::setFileName(std::string inputFileName)
 {
-	fileName = inputFileName;
+    fileName = inputFileName;
 }
 
 void AppConfig::setDeviceID(int inputDeviceID)
 {
-	deviceID = inputDeviceID;
+    deviceID = inputDeviceID;
 }
 
 void AppConfig::setIsFile(int inputIsFile)
 {
-	isFile = inputIsFile;
+    isFile = inputIsFile;
 }
 
 void AppConfig::setIsDevice(int inputIsDevice)
 {
-	isDevice = inputIsDevice;
+    isDevice = inputIsDevice;
 }
 
 void AppConfig::setIsHeadless(int inputIsHeadless)
 {
-	isHeadless = inputIsHeadless;
+    isHeadless = inputIsHeadless;
 }
 
 void AppConfig::setIsNetworking(int inputIsNetworking)
 {
-	isNetworking = inputIsNetworking;
+    isNetworking = inputIsNetworking;
 }
 
 void AppConfig::setIsDebug(int debug)

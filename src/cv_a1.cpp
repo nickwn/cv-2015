@@ -22,30 +22,31 @@
 
 #include "LProcessor.hpp"
 
-int main() {
-	std::vector<cv::Point> firstL;
-	firstL.push_back(cv::Point(254, 280)); //** 53
-	firstL.push_back(cv::Point(291, 263));
-	firstL.push_back(cv::Point(307, 225));
-	firstL.push_back(cv::Point(307, 278)); //**
-	firstL.push_back(cv::Point(253, 266));
-	firstL.push_back(cv::Point(290, 255));
+int main() 
+{
+    std::vector<cv::Point> firstL;
+    firstL.push_back(cv::Point(254, 280)); //** 53
+    firstL.push_back(cv::Point(291, 263));
+    firstL.push_back(cv::Point(307, 225));
+    firstL.push_back(cv::Point(307, 278)); //**
+    firstL.push_back(cv::Point(253, 266));
+    firstL.push_back(cv::Point(290, 255));
 
-	std::vector<cv::Point> secondL;
-	secondL.push_back(cv::Point(382, 262));
-	secondL.push_back(cv::Point(342, 224));
-	secondL.push_back(cv::Point(382, 277)); //**54
-	secondL.push_back(cv::Point(328, 279)); //**
-	secondL.push_back(cv::Point(343, 262));
-	secondL.push_back(cv::Point(327, 225));
+    std::vector<cv::Point> secondL;
+    secondL.push_back(cv::Point(382, 262));
+    secondL.push_back(cv::Point(342, 224));
+    secondL.push_back(cv::Point(382, 277)); //**54
+    secondL.push_back(cv::Point(328, 279)); //**
+    secondL.push_back(cv::Point(343, 262));
+    secondL.push_back(cv::Point(327, 225));
 
-	LProcessor oak;
-	std::vector<L> points;
-	points.push_back(L(secondL));
-	points.push_back(L(firstL));
-	oak.determineL(points);
-	oak.determineAzimuth();
-	oak.determineDistance();
-	oak.outputData();
-	return 0;
+    LProcessor oak;
+    std::vector<L> points;
+    points.push_back(L(secondL));
+    points.push_back(L(firstL));
+    oak.determineL(points);
+    oak.determineAzimuth();
+    oak.determineDistance();
+    oak.outputData();
+    return 0;
 }
