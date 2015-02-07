@@ -55,7 +55,7 @@ void GUIManager::setImage(cv::Mat inputImage)
 void GUIManager::setImageText(std::string imageText)
 {
     cv::putText(image, imageText, cv::Point(0, image.rows - 5), 
-        cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(0.0, 255.0, 0.0, 0.0),
+        cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(0.0, 0.0, 255.0, 0.0),
         1);
 }
 
