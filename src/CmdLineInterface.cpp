@@ -87,7 +87,7 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
         }
     }
 
-    if (! config.getIsFile() && ! config.getIsDevice()) 
+    if (! config.getIsFile() && ! config.getIsDevice())
     {
         printUsage(argv[0]);
         exit(1);
@@ -106,12 +106,12 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
             std::cout << "No networking mode\n";
 
         if(config.getIsDevice())
-            std::cout << "Device mode: using /dev/video" << 
-                config.getDeviceID() << std::endl;
-        
+            std::cout << "Device mode: using /dev/video" <<
+                      config.getDeviceID() << std::endl;
+
         if(config.getIsFile())
-            std::cout << "File mode: using " << 
-                config.getFileName() << std::endl;
+            std::cout << "File mode: using " <<
+                      config.getFileName() << std::endl;
     }
 }
 

@@ -35,7 +35,7 @@ int main() {
     //detector.show();
     //cv::waitKey(0);
     std::vector<L> foundLs = detector.getLs();
-    //std::cout << foundLs.size() << std::endl;    
+    //std::cout << foundLs.size() << std::endl;
 
     LProcessor processor;
     processor.determineL(foundLs);

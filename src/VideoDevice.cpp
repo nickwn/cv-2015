@@ -61,17 +61,17 @@ cv::Mat VideoDevice::getImage(bool isDebug)
 void VideoDevice::initCamera(int deviceID)
 {
     // Get Video Capture Device
-    try 
+    try
     {
         camera.open(deviceID);
-        if (!camera.isOpened()) 
+        if (!camera.isOpened())
         {
             std::stringstream errorMsg;
             errorMsg << "Unable to open capture device /dev/video" << deviceID;
             throw errorMsg.str();
         }
-    } 
-    catch (std::string errMsg) 
+    }
+    catch (std::string errMsg)
     {
         std::cout << errMsg << std::endl;
         exit(1);
@@ -80,7 +80,7 @@ void VideoDevice::initCamera(int deviceID)
 
 void VideoDevice::captureFromCamera()
 {
-    while (! isFinished) 
+    while (! isFinished)
     {
         camera >>image;
         isReady = 1;

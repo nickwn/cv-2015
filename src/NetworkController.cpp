@@ -15,7 +15,7 @@
  *
  *    You should have received a copy of the GNU General Public License
  *    along with FRC Team 3341 Targeting.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
 */
 
 /*
@@ -51,12 +51,12 @@ NetworkController::~NetworkController()
 
 void NetworkController::startServer()
 {
-    try 
+    try
     {
         io_service = new boost::asio::io_service();
-        acceptor = new boost::asio::ip::tcp::acceptor(*io_service, 
-            boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 
-                portNumber));
+        acceptor = new boost::asio::ip::tcp::acceptor(*io_service,
+                boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
+                                               portNumber));
         socket = new boost::asio::ip::tcp::socket(*io_service);
         acceptor->accept(*socket);
         boost::asio::socket_base::keep_alive option(true);
@@ -81,6 +81,6 @@ void NetworkController::waitForPing()
 
 void NetworkController::sendMessage(std::string message)
 {
-    boost::asio::write(*socket, boost::asio::buffer(message 
-        + std::string("\n")), ignored_error);
+    boost::asio::write(*socket, boost::asio::buffer(message
+                       + std::string("\n")), ignored_error);
 }

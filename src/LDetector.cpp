@@ -72,20 +72,18 @@ void LDetector::elFilter()
         {
             all.at(i).configureL();
             L L2 = all.at(i);
-            
+
             if(L1.getTopPoint().x < L2.getTopPoint().x + 10 &&
                     L1.getTopPoint().x > L2.getTopPoint().x - 10 &&
                     L1.getTopPoint().y < L2.getTopPoint().x + 10 &&
-                    L1.getTopPoint().y > L2.getTopPoint().x - 10 && 
+                    L1.getTopPoint().y > L2.getTopPoint().x - 10 &&
                     L1.getOrientation() == L2.getOrientation())
             {
                 all.erase(all.begin()+i);
                 //CODE TO REMOVE L2
             }
             else
-            {
                 i++;
-            }
         }
     }
 }
@@ -140,23 +138,19 @@ bool LDetector::LosAngles(std::vector<cv::Point> vect)
         b = (a + 1);
         c = (a + 2);
         if (b > 5)
-        {
             b = (b % 5) - 1;
-        }
         if (c > 5)
-        {
             c = (c % 5) - 1;
-        }
 
         if (fabs(elAngles(vect.at(a), vect.at(c), vect.at(b))) < .2)
         {
             wat.push_back(true);
-    //        std::cout << "tru" << std::endl;
+            //        std::cout << "tru" << std::endl;
         }
         else
         {
             wat.push_back(false);
-    //        std::cout << "no" << std::endl;
+            //        std::cout << "no" << std::endl;
         }
         a++;
     }
@@ -181,7 +175,7 @@ double LDetector::elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt0)
     //std::cout << bleh << std::endl;
     return bleh;
 }
- cv::Mat LDetector::show()
+cv::Mat LDetector::show()
 {
     for (size_t i = 0; i < all.size(); i++)
     {
@@ -203,18 +197,18 @@ void LDetector::largest2()
     std::vector<L> rightLs;
     for (unsigned i = 0; i < all.size(); i++)
     {
-	    if (all.at(i).getOrientation())
-		    rightLs.push_back(all.at(i));
-	    else
-		    leftLs.push_back(all.at(i));
+        if (all.at(i).getOrientation())
+            rightLs.push_back(all.at(i));
+        else
+            leftLs.push_back(all.at(i));
     }
     std::sort(leftLs.begin(), leftLs.end());
     std::sort(rightLs.begin(), rightLs.end());
     all.clear();
     if (leftLs.at(leftLs.size() - 1).getArea() >= 1000)
-	    all.push_back(leftLs.at(leftLs.size() - 1));
+        all.push_back(leftLs.at(leftLs.size() - 1));
     if (rightLs.at(rightLs.size() - 1).getArea() >= 1000)
-	    all.push_back(rightLs.at(rightLs.size() - 1));
+        all.push_back(rightLs.at(rightLs.size() - 1));
 }
 
 std::vector<L> LDetector::getLs()

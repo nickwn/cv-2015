@@ -40,8 +40,8 @@ class L {
         void calculateLength();
         bool getOrientation();
         double getArea() const;
-	bool operator < (const L& l) const;
-	bool operator > (const L& l) const;
+        bool operator < (const L& l) const;
+        bool operator > (const L& l) const;
         std::vector<cv::Point> getPoints();
     private:
         std::vector<cv::Point> points;

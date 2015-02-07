@@ -23,7 +23,7 @@
 #include "LProcessor.hpp"
 #include "L.hpp"
 
-void LProcessor::determineL(std::vector<L> ls){
+void LProcessor::determineL(std::vector<L> ls) {
     firstL = ls.at(0);
     secondL = ls.at(1);
     //firstL.configureL();

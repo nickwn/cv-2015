@@ -41,12 +41,12 @@ L::L(std::vector<cv::Point> p) {
 
 bool L::operator < (const L& l) const
 {
-	return (area < l.getArea());
+    return (area < l.getArea());
 }
 
 bool L::operator > (const L& l) const
 {
-	return (area > l.getArea());
+    return (area > l.getArea());
 }
 
 double L::getArea() const

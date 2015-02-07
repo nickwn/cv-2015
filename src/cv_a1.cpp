@@ -22,7 +22,7 @@
 
 #include "LProcessor.hpp"
 
-int main() 
+int main()
 {
     std::vector<cv::Point> firstL;
     firstL.push_back(cv::Point(254, 280)); //** 53

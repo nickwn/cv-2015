@@ -47,13 +47,9 @@ int main(int argc, char* argv[])
 
         cv::Mat image;
         if(config.getIsFile())
-        {
             image = cv::imread(config.getFileName());
-        }
         else
-        {
             image = camera.getImage(config.getIsDebug());
-        }
 
         detector.elLoad(image);
         detector.elSplit();
@@ -61,17 +57,17 @@ int main(int argc, char* argv[])
         detector.elContours();
         detector.elFilter();
 
-	bool foundL = true;
-	if (detector.getLs().size() >= 2)
-		detector.largest2();
-	else
-		foundL = false;
-	if (detector.getLs().size() < 2)
-		foundL = false;
-	if (foundL)
-	{
+        bool foundL = true;
+        if (detector.getLs().size() >= 2)
+            detector.largest2();
+        else
+            foundL = false;
+        if (detector.getLs().size() < 2)
+            foundL = false;
+        if (foundL)
+        {
             if(config.getIsDebug())
-		    std::cout << "Found " << detector.getLs().size() << " L's!" << std::endl;
+                std::cout << "Found " << detector.getLs().size() << " L's!" << std::endl;
             processor.determineL(detector.getLs());
             processor.determineAzimuth();
             processor.determineDistance();
@@ -93,13 +89,13 @@ int main(int argc, char* argv[])
 
             if(config.getIsNetworking())
             {
-                networkController.sendMessage(boost::lexical_cast<std::string> ("true") + std::string(";") 
-                    + boost::lexical_cast<std::string> (distance) + std::string(";") 
-                    + boost::lexical_cast<std::string> (azimuth));
+                networkController.sendMessage(boost::lexical_cast<std::string> ("true") + std::string(";")
+                                              + boost::lexical_cast<std::string> (distance) + std::string(";")
+                                              + boost::lexical_cast<std::string> (azimuth));
             }
 
         }
-        else 
+        else
         {
             if(config.getIsDebug() && config.getIsFile())
                 std::cout << "Found less than 2 L's :(\n";
@@ -107,7 +103,7 @@ int main(int argc, char* argv[])
                 networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
         }
 
-        
+
     }
     while(config.getIsDevice());
 
