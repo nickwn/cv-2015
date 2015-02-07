@@ -56,21 +56,23 @@ int main(int argc, char* argv[])
         }
 
         detector.elLoad(image);
-
         detector.elSplit();
         detector.elThresh();
         detector.elContours();
         detector.elFilter();
-        std::vector<L> foundLs = detector.ArrayReturned();
 
-        int numLsFound = (foundLs.size());
-
-        if(numLsFound >= 2)
-        {
+	bool foundL = true;
+	if (detector.getLs().size() >= 2)
+		detector.largest2();
+	else
+		foundL = false;
+	if (detector.getLs().size() < 2)
+		foundL = false;
+	if (foundL)
+	{
             if(config.getIsDebug())
-                std::cout << "Found " << foundLs.size() << " L's!" << std::endl;
-            detector.largest2();
-            processor.determineL(foundLs);
+		    std::cout << "Found " << detector.getLs().size() << " L's!" << std::endl;
+            processor.determineL(detector.getLs());
             processor.determineAzimuth();
             processor.determineDistance();
             double azimuth = processor.getAzimuth();
@@ -79,7 +81,7 @@ int main(int argc, char* argv[])
             if(!config.getIsHeadless())
             {
                 gui.setImage(detector.show());
-                gui.setImageText("Found " + boost::lexical_cast<std::string>(numLsFound) + " L's");
+                gui.setImageText("Found " + boost::lexical_cast<std::string>(detector.getLs().size()) + " L's");
                 gui.show(config.getIsFile());
             }
 

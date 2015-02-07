@@ -39,7 +39,17 @@ L::L(std::vector<cv::Point> p) {
     area = fabs(cv::contourArea(points, true));
 }
 
-double L::getArea()
+bool L::operator < (const L& l) const
+{
+	return (area < l.getArea());
+}
+
+bool L::operator > (const L& l) const
+{
+	return (area > l.getArea());
+}
+
+double L::getArea() const
 {
     return area;
 }

@@ -41,7 +41,7 @@ class LDetector {
         //void loopAndPrint();
         //void show();
         //bool containsRectangle(Rectangle rec1, Rectangle rec2);
-        std::vector<L> ArrayReturned();
+        std::vector<L> getLs();
     private:
         //std::vector<Rectangle> rectList;
         //std::vector<std::vector<cv::Point> > allRectangles;

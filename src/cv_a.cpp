@@ -34,7 +34,7 @@ int main() {
     detector.largest2();
     //detector.show();
     //cv::waitKey(0);
-    std::vector<L> foundLs = detector.ArrayReturned();
+    std::vector<L> foundLs = detector.getLs();
     //std::cout << foundLs.size() << std::endl;    
 
     LProcessor processor;

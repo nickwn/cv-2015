@@ -199,35 +199,25 @@ double LDetector::elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt0)
 
 void LDetector::largest2()
 {
-    std::vector<L> array;
-    int count = 0;
-    while (count < 2)
+    std::vector<L> leftLs;
+    std::vector<L> rightLs;
+    for (unsigned i = 0; i < all.size(); i++)
     {
-        int largeItr = 0;
-        double largeSize = 0;
-
-        for(unsigned x = 0; x < all.size(); x++)
-        {
-            L temp = all.at(x);
-            std::cout << "Area: " << temp.getArea() << std::endl;
-            if (temp.getArea() > largeSize)
-            {
-                largeItr = x;
-            }
-        }
-        if (largeSize > 0)
-        {
-            array.push_back(all.at(largeItr));
-        }
-        all.erase(all.begin() + largeItr);
-        //std::cout << "all.size() "<< all.size() << std::endl;
-        count++;
+	    if (all.at(i).getOrientation())
+		    rightLs.push_back(all.at(i));
+	    else
+		    leftLs.push_back(all.at(i));
     }
-
-    //all = array;
+    std::sort(leftLs.begin(), leftLs.end());
+    std::sort(rightLs.begin(), rightLs.end());
+    all.clear();
+    if (leftLs.at(leftLs.size() - 1).getArea() >= 1000)
+	    all.push_back(leftLs.at(leftLs.size() - 1));
+    if (rightLs.at(rightLs.size() - 1).getArea() >= 1000)
+	    all.push_back(rightLs.at(rightLs.size() - 1));
 }
 
-std::vector<L> LDetector::ArrayReturned()
+std::vector<L> LDetector::getLs()
 {
     return all;
 }
