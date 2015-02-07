@@ -26,23 +26,23 @@
 #include "L.hpp"
 
 class LProcessor {
-public:
-	void determineL(std::vector<L>);
-	cv::Point determineCenter();
-	void determineDistance();
-	void determineAzimuth();
-	void outputData();
-	double getAzimuth();
-	double getDistance();
-private:
-	double azimuth;
-	double distanceFullHorizontal;
-	double distanceVertical;
-	double focalLength = 640;
-	double imgWidth = 640;
-	double imgHeight = 480;
-	L firstL;
-	L secondL;
+    public:
+        void determineL(std::vector<L>);
+        cv::Point determineCenter();
+        void determineDistance();
+        void determineAzimuth();
+        void outputData();
+        double getAzimuth();
+        double getDistance();
+    private:
+        double azimuth;
+        double distanceFullHorizontal;
+        double distanceVertical;
+        double focalLength = 640;
+        double imgWidth = 640;
+        double imgHeight = 480;
+        L firstL;
+        L secondL;
 };
 
 #endif /* LProcessor_hpp */

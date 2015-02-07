@@ -66,14 +66,14 @@ void VideoDevice::initCamera(int deviceID)
         camera.open(deviceID);
         if (!camera.isOpened()) 
         {
-			std::stringstream errorMsg;
+            std::stringstream errorMsg;
             errorMsg << "Unable to open capture device /dev/video" << deviceID;
             throw errorMsg.str();
         }
     } 
     catch (std::string errMsg) 
     {
-		std::cout << errMsg << std::endl;
+        std::cout << errMsg << std::endl;
         exit(1);
     }
 }

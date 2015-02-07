@@ -25,24 +25,24 @@
 #include "L.hpp"
 
 int main() {
-	LDetector detector;
-	detector.elLoad(cv::imread("./img.jpg"));
-	detector.elSplit();
-	detector.elThresh();
-	detector.elContours();
-	detector.elFilter();
-	detector.largest2();
-	//detector.show();
-	//cv::waitKey(0);
-	std::vector<L> foundLs = detector.ArrayReturned();
-	//std::cout << foundLs.size() << std::endl;	
+    LDetector detector;
+    detector.elLoad(cv::imread("./img.jpg"));
+    detector.elSplit();
+    detector.elThresh();
+    detector.elContours();
+    detector.elFilter();
+    detector.largest2();
+    //detector.show();
+    //cv::waitKey(0);
+    std::vector<L> foundLs = detector.ArrayReturned();
+    //std::cout << foundLs.size() << std::endl;    
 
-	LProcessor processor;
-	processor.determineL(foundLs);
-	processor.determineAzimuth();
-	processor.determineDistance();
-	//processor.outputData();
-	std::cout << "Distance: " << processor.getDistance() << std::endl;
-	std::cout << "Azimuth: " << processor.getAzimuth() << std::endl;
-	return 0;
+    LProcessor processor;
+    processor.determineL(foundLs);
+    processor.determineAzimuth();
+    processor.determineDistance();
+    //processor.outputData();
+    std::cout << "Distance: " << processor.getDistance() << std::endl;
+    std::cout << "Azimuth: " << processor.getAzimuth() << std::endl;
+    return 0;
 }

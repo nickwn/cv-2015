@@ -25,18 +25,16 @@
 
 int main(int argc, char* argv[])
 {
-	LDetector what = LDetector();
-	what.elLoad(cv::imread("./img.jpg"));
-	what.elSplit();
-	what.elThresh();
-	what.elContours();
-	what.elFilter();
-	what.largest2();
-	what.show();
+    LDetector what = LDetector();
+    what.elLoad(cv::imread("./img.jpg"));
+    what.elSplit();
+    what.elThresh();
+    what.elContours();
+    what.elFilter();
+    what.largest2();
+    what.show();
 
-	cv::waitKey(0);
+    cv::waitKey(0);
 
-
-	return 0;
-
+    return 0;
 }

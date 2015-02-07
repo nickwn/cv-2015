@@ -25,43 +25,40 @@
 #include "L.hpp"
 
 class LDetector {
-public:
-	LDetector();
+    public:
+        LDetector();
 
-	void elLoad(cv::Mat foto);
-	void elSplit();
-	void elThresh();
-	cv::Mat show();
-	void elFilter();
-	void elContours();
-	void largest2();
-	//double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0);
-	//void whatever();
-	//void populateRectangles();
-//	void loopAndPrint();
-	//void show();
-	//bool containsRectangle(Rectangle rec1, Rectangle rec2);
-	std::vector<L> ArrayReturned();
-private:
-	//std::vector<Rectangle> rectList;
-	//std::vector<std::vector<cv::Point> > allRectangles;
-	cv::Mat image;
+        void elLoad(cv::Mat foto);
+        void elSplit();
+        void elThresh();
+        cv::Mat show();
+        void elFilter();
+        void elContours();
+        void largest2();
+        //double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0);
+        //void whatever();
+        //void populateRectangles();
+        //void loopAndPrint();
+        //void show();
+        //bool containsRectangle(Rectangle rec1, Rectangle rec2);
+        std::vector<L> ArrayReturned();
+    private:
+        //std::vector<Rectangle> rectList;
+        //std::vector<std::vector<cv::Point> > allRectangles;
+        cv::Mat image;
 
-	//FOR THE SPLITTY-RECREATEY STUFF
-	cv::Mat b;
-	std::vector<cv::Mat> a;
-	cv::Mat hueLower;
-	cv::Mat hueUpper;
-	cv::Mat valUp, valLow;
-	cv::Mat thresh;
-	cv::Mat combine;
-	std::vector<L> all;
-	std::vector<cv::Point> approx;
-	double elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt3);
-	bool LosAngles(std::vector<cv::Point> vect);
-	
-
-
+        //FOR THE SPLITTY-RECREATEY STUFF
+        cv::Mat b;
+        std::vector<cv::Mat> a;
+        cv::Mat hueLower;
+        cv::Mat hueUpper;
+        cv::Mat valUp, valLow;
+        cv::Mat thresh;
+        cv::Mat combine;
+        std::vector<L> all;
+        std::vector<cv::Point> approx;
+        double elAngles(cv::Point pt1, cv::Point pt2, cv::Point pt3);
+        bool LosAngles(std::vector<cv::Point> vect);
 };
 
 #endif /* LDetector_hpp */

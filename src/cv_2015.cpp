@@ -76,9 +76,17 @@ int main(int argc, char* argv[])
             double azimuth = processor.getAzimuth();
             double distance = processor.getDistance();
 
+            if(!config.getIsHeadless())
+            {
+                gui.setImage(detector.show());
+                gui.setImageText("Found " + boost::lexical_cast<std::string>(numLsFound) + " L's");
+                gui.show(config.getIsFile());
+            }
+
             if(config.getIsDebug())
             {
                 processor.outputData();
+                std::cout << "Final distance: " << processor.getDistance() << std::endl;
             }
 
             if(config.getIsNetworking())
@@ -91,19 +99,16 @@ int main(int argc, char* argv[])
         }
         else 
         {
+            if(config.getIsDebug() && config.getIsFile())
+                std::cout << "Found less than 2 L's :(\n";
             if(config.getIsNetworking())
                 networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
         }
 
-        if(!config.getIsHeadless())
-        {
-            gui.setImage(detector.show());
-            gui.setImageText("Found " + boost::lexical_cast<std::string>(numLsFound) + " L's");
-            gui.show(config.getIsFile());
-        }
+        
     }
     while(config.getIsDevice());
 
-	return 0;
+    return 0;
 }
 
