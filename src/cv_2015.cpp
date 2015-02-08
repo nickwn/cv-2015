@@ -74,13 +74,6 @@ int main(int argc, char* argv[])
             double azimuth = processor.getAzimuth();
             double distance = processor.getDistance();
 
-            if(!config.getIsHeadless())
-            {
-                gui.setImage(detector.show());
-                gui.setImageText("Found " + boost::lexical_cast<std::string>(detector.getLs().size()) + " L's");
-                gui.show(config.getIsFile());
-            }
-
             if(config.getIsDebug())
             {
                 processor.outputData();
@@ -103,7 +96,12 @@ int main(int argc, char* argv[])
                 networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
         }
 
-
+        if(!config.getIsHeadless())
+        {
+            gui.setImage(detector.show());
+            gui.setImageText("Found " + boost::lexical_cast<std::string>(detector.getLs().size()) + " L's");
+            gui.show(config.getIsFile());
+        }
     }
     while(config.getIsDevice());
 
