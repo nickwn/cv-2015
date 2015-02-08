@@ -62,7 +62,6 @@ void LDetector::elThresh()
 
 void LDetector::elFilter()
 {
-    std::cout << "all.size(): " << all.size() << std::endl;
     for (unsigned j = 0; j < all.size(); ++j)
     {
         all.at(j).configureL();
