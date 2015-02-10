@@ -66,8 +66,6 @@ int main(int argc, char* argv[])
             foundL = false;
         if (foundL)
         {
-            if(config.getIsDebug())
-                std::cout << "Found " << detector.getLs().size() << " L's!" << std::endl;
             processor.determineL(detector.getLs());
             processor.determineAzimuth();
             processor.determineDistance();
@@ -77,7 +75,17 @@ int main(int argc, char* argv[])
             if(config.getIsDebug())
             {
                 processor.outputData();
-                std::cout << "Final distance: " << processor.getDistance() << std::endl;
+                std::cout << "Final distance (m): " << processor.getDistance() << std::endl;
+            }
+
+            if(!config.getIsHeadless())
+            {
+                int i_dist = (int) (distance * 1000.0);
+                double form_dist = (double) i_dist / 1000.0;
+                
+                gui.setImage(detector.show());
+                gui.setImageText("Distance (m): " + boost::lexical_cast<std::string>(form_dist));
+                gui.show(config.getIsFile());
             }
 
             if(config.getIsNetworking())
@@ -90,17 +98,14 @@ int main(int argc, char* argv[])
         }
         else
         {
-            if(config.getIsDebug() && config.getIsFile())
-                std::cout << "Found less than 2 L's :(\n";
             if(config.getIsNetworking())
                 networkController.sendMessage(boost::lexical_cast<std::string> ("false") + std::string(";"));
-        }
-
-        if(!config.getIsHeadless())
-        {
-            gui.setImage(detector.show());
-            gui.setImageText("Found " + boost::lexical_cast<std::string>(detector.getLs().size()) + " L's");
-            gui.show(config.getIsFile());
+            if(!config.getIsHeadless())
+            {
+                gui.setImage(detector.show());
+                gui.setImageText("No L's Found");                
+                gui.show(config.getIsFile());
+            }
         }
     }
     while(config.getIsDevice());
