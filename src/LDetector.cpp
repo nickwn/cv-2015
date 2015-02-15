@@ -204,6 +204,8 @@ void LDetector::largest2()
     std::sort(leftLs.begin(), leftLs.end());
     std::sort(rightLs.begin(), rightLs.end());
     all.clear();
+    if (leftLs.size() == 0 || rightLs.size() == 0)
+        return;
     if (leftLs.at(leftLs.size() - 1).getArea() >= 1000)
         all.push_back(leftLs.at(leftLs.size() - 1));
     if (rightLs.at(rightLs.size() - 1).getArea() >= 1000)
