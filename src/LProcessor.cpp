@@ -25,7 +25,12 @@
 
 void LProcessor::determineL(std::vector<L> ls) {
     firstL = ls.at(0);
-    secondL = ls.at(1);
+    lCount++;
+    if (ls.size() == 2)
+    {
+	secondL = ls.at(1);
+	lCount++;
+    }
     //firstL.configureL();
 //    std::cout << firstL.getHorizontalLength() << std::endl;
 //    std::cout << secondL.getHorizontalLength() << std::endl;
@@ -45,6 +50,25 @@ double LProcessor::getDistance()
 
 
 cv::Point LProcessor::determineCenter()
+{
+	if (lCount == 1)
+		return determineCenter1L();
+	else
+		return determineCenter2Ls();
+}
+
+cv::Point LProcessor::determineCenter1L()
+{
+	double pixelsToCenter = distanceLEdgeToCenter * firstL.getHorizontalLength() / horizontalLLength;
+	cv::Point center;
+	if (firstL.getOrientation())
+		pixelsToCenter *= -1;
+	center.x = firstL.getCornerPoint().x + pixelsToCenter;
+	center.y = (firstL.getTopPoint().y + firstL.getCornerPoint().y) / 2;
+	return center;
+}
+
+cv::Point LProcessor::determineCenter2Ls()
 {
     std::vector<cv::Point> fPoints = firstL.getPoints();
     double x1 = 0;
@@ -71,7 +95,6 @@ cv::Point LProcessor::determineCenter()
     return cv::Point(avgX, avgY);
 }
 
-
 void LProcessor::determineAzimuth()
 {
     azimuth = (((double)imgWidth/2.0)-(double)determineCenter().x)/ focalLength;
@@ -80,14 +103,28 @@ void LProcessor::determineAzimuth()
 
 void LProcessor::determineDistance()
 {
+	if (lCount == 1)
+		return determineDistance1L();
+	else
+		return determineDistance2Ls();	
+}
+
+void LProcessor::determineDistance1L()
+{
+    distanceFullHorizontal = horizontalLLength * focalLength / firstL.getHorizontalLength();
+    distanceVertical = verticalLLength * focalLength / firstL.getVerticalLength();
+}
+
+void LProcessor::determineDistance2Ls()
+{
     /*
      Currently the distance is calculated using the horizontal length between the side points of each L.
      Additionally, length is calculated using the shorter vertical distance of both L's.
      */
     double lengthFullHorizontal = sqrt(pow(firstL.getSidePoint().x - secondL.getSidePoint().x,2) + pow(firstL.getSidePoint().y - secondL.getSidePoint().y,2));
-    distanceFullHorizontal = 0.425458 / lengthFullHorizontal * focalLength;
+    distanceFullHorizontal = fullHorizontalLLength * focalLength / lengthFullHorizontal;
     double lengthVertical = (firstL.getVerticalLength() + secondL.getVerticalLength()) / 2; //fmin(firstL.getVerticalLength(), secondL.getVerticalLength());
-    distanceVertical = 0.1778 / lengthVertical * focalLength;
+    distanceVertical = verticalLLength * focalLength / lengthVertical;
 }
 
 void LProcessor::outputData()
@@ -96,7 +133,8 @@ void LProcessor::outputData()
     std::cout << "Final Results" << std::endl;
     std::cout << "================================================================" << std::endl;
     std::cout << "L1: " << "Horizontal Length [In Pixels]: " << firstL.getHorizontalLength() << ", Vertical Length [In Pixels]: " << firstL.getVerticalLength() << ", Orientation: " << dir[firstL.getOrientation()] << std::endl;
-    std::cout << "L2: " << "Horizontal Length [In Pixels]: " << secondL.getHorizontalLength() << ", Vertical Length [In Pixels]: " << secondL.getVerticalLength() << ", Orientation: " << dir[secondL.getOrientation()] << std::endl;
+    if (lCount > 1)
+        std::cout << "L2: " << "Horizontal Length [In Pixels]: " << secondL.getHorizontalLength() << ", Vertical Length [In Pixels]: " << secondL.getVerticalLength() << ", Orientation: " << dir[secondL.getOrientation()] << std::endl;
     std::cout << "Calculated Azimuth: " << azimuth << std::endl;
     std::cout << "Calculated Distance (Full Horizontal) [In Meters]: " << distanceFullHorizontal << std::endl;
     std::cout << "Calculated Distance (Vertical Average) [In Meters]: " << distanceVertical << std::endl;

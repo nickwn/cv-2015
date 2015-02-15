@@ -58,12 +58,12 @@ int main(int argc, char* argv[])
         detector.elFilter();
 
         bool foundL = true;
-        if (detector.getLs().size() >= 2)
+        if (detector.getLs().size() > 0)
             detector.largest2();
         else
             foundL = false;
-        if (detector.getLs().size() < 2)
-            foundL = false;
+	if (detector.getLs().size() == 0)
+	    foundL = false;
         if (foundL)
         {
             processor.determineL(detector.getLs());

@@ -29,7 +29,11 @@ class LProcessor {
     public:
         void determineL(std::vector<L>);
         cv::Point determineCenter();
+        cv::Point determineCenter1L();
+        cv::Point determineCenter2Ls();
         void determineDistance();
+        void determineDistance1L();
+        void determineDistance2Ls();
         void determineAzimuth();
         void outputData();
         double getAzimuth();
@@ -38,9 +42,14 @@ class LProcessor {
         double azimuth;
         double distanceFullHorizontal;
         double distanceVertical;
-        double focalLength = 640;
-        double imgWidth = 640;
-        double imgHeight = 480;
+        const double focalLength = 640;
+        const double imgWidth = 640;
+        const double imgHeight = 480;
+	const double distanceLEdgeToCenter = 0.034925;
+	const double horizontalLLength = 0.1778;
+	const double verticalLLength = 0.1778;
+	const double fullHorizontalLLength = 0.425458;
+	int lCount = 0;
         L firstL;
         L secondL;
 };
