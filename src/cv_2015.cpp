@@ -81,10 +81,12 @@ int main(int argc, char* argv[])
             if(!config.getIsHeadless())
             {
                 int i_dist = (int) (distance * 1000.0);
-                double form_dist = (double) i_dist / 1000.0;
+                int dist_left = i_dist / 1000;
+                int dist_right = i_dist % 1000;
+                std::string dist_str = boost::lexical_cast<std::string>(dist_left) + "." + boost::lexical_cast<std::string>(dist_right);
                 
                 gui.setImage(detector.show());
-                gui.setImageText("Distance (m): " + boost::lexical_cast<std::string>(form_dist));
+                gui.setImageText("Distance: " + dist_str + " m");
                 gui.show(config.getIsFile());
             }
 
