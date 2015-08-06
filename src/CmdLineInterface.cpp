@@ -33,7 +33,7 @@
 
 void printUsage(std::string name)
 {
-    std::cerr << "Usage: " << name << " (-d <device_num> | -f <filename>) [--no-networking] [--headless] [--debug]" << std::endl;
+    std::cerr << "Usage: " << name << " (-d <device_num> | -f <filename>) [--no-networking] [--headless] [--debug] [--arduino]" << std::endl;
 }
 
 CmdLineInterface::CmdLineInterface(int argc, char *argv[])
@@ -41,12 +41,14 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
     int isHeadless = 0;
     int isNetworking = 1;
     int isDebug = 0;
+    int hasArduino = 0;
 
     while (true) {
         static struct option long_options[] = {
             {"headless", no_argument, &isHeadless, 1},
             {"no-networking", no_argument, &isNetworking, 0},
             {"debug", no_argument, &isDebug, 1},
+            {"arduino", no_argument, &hasArduino, 1}
             {"device", required_argument, 0, 'd'},
             {"file", required_argument, 0, 'f'},
             {0, 0, 0, 0}
@@ -96,6 +98,7 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
     config.setIsHeadless(isHeadless);
     config.setIsDebug(isDebug);
     config.setIsNetworking(isNetworking);
+    config.setHasArduino(hasArduino);
 
     if(isDebug)
     {
@@ -112,6 +115,9 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
         if(config.getIsFile())
             std::cout << "File mode: using " <<
                       config.getFileName() << std::endl;
+
+        if(config.getHasArduino())
+            std::cout<< "Has Arduino attached";
     }
 }
 

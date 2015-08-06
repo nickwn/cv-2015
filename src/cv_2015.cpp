@@ -9,6 +9,7 @@
 #include "VideoDevice.hpp"
 #include "LDetector.hpp"
 #include "LProcessor.hpp"
+#include "ArduinoController.hpp"
 
 
 int main(int argc, char* argv[])
@@ -21,6 +22,7 @@ int main(int argc, char* argv[])
     VideoDevice camera;
     LProcessor processor;
     NetworkController networkController;
+    ArduinoController arduino;
 
     //init camera
     if(config.getIsDevice())
@@ -37,6 +39,10 @@ int main(int argc, char* argv[])
     if(!config.getIsHeadless())
         gui.init();
 
+    if (config.getHasArduino)
+    {
+        arduino.init(9600, 16);  //baud rate, serial port (16 is the standard arduino port)
+    }
     //continuous server loop
     do
     {
@@ -84,7 +90,7 @@ int main(int argc, char* argv[])
                 int dist_left = i_dist / 1000;
                 int dist_right = i_dist % 1000;
                 std::string dist_str = boost::lexical_cast<std::string>(dist_left) + "." + boost::lexical_cast<std::string>(dist_right);
-                
+
                 gui.setImage(detector.show());
                 gui.setImageText("Distance: " + dist_str + " m");
                 gui.show(config.getIsFile());
@@ -105,7 +111,7 @@ int main(int argc, char* argv[])
             if(!config.getIsHeadless())
             {
                 gui.setImage(detector.show());
-                gui.setImageText("No L's Found");                
+                gui.setImageText("No L's Found");
                 gui.show(config.getIsFile());
             }
         }

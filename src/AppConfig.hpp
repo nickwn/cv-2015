@@ -33,12 +33,14 @@ class AppConfig
         void setIsHeadless(int isHeadless);
         void setIsNetworking(int isNetworking);
         void setIsDebug(int debug);
+        void setHasArduino(int arduino);
         int getDeviceID();
         int getIsFile();
         int getIsDevice();
         int getIsHeadless();
         int getIsNetworking();
         int getIsDebug();
+        int getHasArduino();
         std::string getFileName();
     private:
         std::string fileName;
@@ -48,6 +50,7 @@ class AppConfig
         int isHeadless;
         int isNetworking;
         int isDebug;
+        int hasArduino;
 };
 
 #endif /* AppConfig_hpp */
