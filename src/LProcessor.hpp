@@ -38,6 +38,7 @@ class LProcessor {
         void outputData();
         double getAzimuth();
         double getDistance();
+        cv::Point getCenter();
     private:
         double azimuth;
         double distanceFullHorizontal;

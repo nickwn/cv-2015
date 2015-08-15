@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 
             if(config.getHasArduino())
             {
-                arduino.sendMessage((int)azimuth, (int)distance, (int)processor.distanceVertical);
+                arduino.sendMessage((int)azimuth, processor.getCenter());
             }
 
         }

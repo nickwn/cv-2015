@@ -48,6 +48,11 @@ double LProcessor::getDistance()
     return fmin(distanceFullHorizontal, distanceVertical);
 }
 
+cv::Point LProcessor::getCenter()
+{
+    return determineCenter();
+}
+
 
 cv::Point LProcessor::determineCenter()
 {
@@ -106,7 +111,7 @@ void LProcessor::determineDistance()
 	if (lCount == 1)
 		return determineDistance1L();
 	else
-		return determineDistance2Ls();	
+		return determineDistance2Ls();
 }
 
 void LProcessor::determineDistance1L()
