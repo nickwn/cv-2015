@@ -6,7 +6,7 @@ class ArduinoController
     public:
         ArduinoController();
         void init(int baudRate, int Port);
-        void sendMessage(int vertical, int horizontal);
+        void sendMessage(int azimuth, int distance, int height);
         int recieveMessage();
 
     private:

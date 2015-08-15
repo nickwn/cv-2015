@@ -103,6 +103,11 @@ int main(int argc, char* argv[])
                                               + boost::lexical_cast<std::string> (azimuth));
             }
 
+            if(config.getHasArduino())
+            {
+                arduino.sendMessage((int)azimuth, (int)distance, (int)processor.distanceVertical);
+            }
+
         }
         else
         {
