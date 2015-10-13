@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
     if(!config.getIsHeadless())
         gui.init();
 
-    if (config.getHasArduino)
+    if (config.getHasArduino())
     {
         arduino.init(9600, 16);  //baud rate, serial port (16 is the standard arduino port)
     }

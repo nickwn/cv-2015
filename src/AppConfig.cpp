@@ -28,7 +28,7 @@ AppConfig::AppConfig() :
     isDevice(0),
     isHeadless(0),
     isNetworking(1),
-    isDebug(0)
+    isDebug(0),
     hasArduino(0)
 {
 }

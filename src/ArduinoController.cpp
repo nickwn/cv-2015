@@ -14,19 +14,19 @@ void ArduinoController::init(int baudRate, int Port)
 
     if(RS232_OpenComport(port, baud_rate, mode))
     {
-        std::cout << "Can not open port\n";
-        return(0);
+        std::cerr << "Can not open port\n";
+        return;
     }
 }
 
-void sendMessage(int azimuth, cv::Point LCenter)
+void ArduinoController::sendMessage(int azimuth, cv::Point LCenter)
 {
-    altitude = ((imgHeight/2.0)-LCenter.y)/ focalLength;
+    altitude = ((imgHeight/2.0)-LCenter.y) / focalLength;
     altitude *= 180.0 / M_PI;
 
     if(RS232_SendByte(port, (char)azimuth) == -1)
     {
-        std::cout << "error sending byte/n";
+        std::cerr << "error sending byte\n";
     }
 
     else
@@ -36,7 +36,8 @@ void sendMessage(int azimuth, cv::Point LCenter)
 
 }
 
-int recieveMessage()
+int ArduinoController::recieveMessage()
 {
     // this might be for error messages or something
+    return 0;
 }

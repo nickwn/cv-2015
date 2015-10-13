@@ -48,7 +48,7 @@ CmdLineInterface::CmdLineInterface(int argc, char *argv[])
             {"headless", no_argument, &isHeadless, 1},
             {"no-networking", no_argument, &isNetworking, 0},
             {"debug", no_argument, &isDebug, 1},
-            {"arduino", no_argument, &hasArduino, 1}
+            {"arduino", no_argument, &hasArduino, 1},
             {"device", required_argument, 0, 'd'},
             {"file", required_argument, 0, 'f'},
             {0, 0, 0, 0}
