@@ -41,7 +41,8 @@ int main(int argc, char* argv[])
 
     if (config.getHasArduino())
     {
-        arduino.init(9600, 16);  //baud rate, serial port (16 is the standard arduino port)
+        //16 is /dev/ttyUSB0, 24 is /dev/ttyACM0
+        arduino.init(9600, 24);  //baud rate, serial port
     }
     //continuous server loop
     do
@@ -60,16 +61,15 @@ int main(int argc, char* argv[])
         detector.elLoad(image);
         detector.elSplit();
         detector.elThresh();
-        detector.elContours();
-        detector.elFilter();
+        detector.elContours(); detector.elFilter();
 
         bool foundL = true;
         if (detector.getLs().size() > 0)
             detector.largest2();
         else
             foundL = false;
-	if (detector.getLs().size() == 0)
-	    foundL = false;
+        if (detector.getLs().size() == 0)
+            foundL = false;
         if (foundL)
         {
             processor.determineL(detector.getLs());
@@ -103,11 +103,6 @@ int main(int argc, char* argv[])
                                               + boost::lexical_cast<std::string> (azimuth));
             }
 
-            if(config.getHasArduino())
-            {
-                arduino.sendMessage((int)azimuth, processor.getCenter());
-            }
-
         }
         else
         {
@@ -120,6 +115,14 @@ int main(int argc, char* argv[])
                 gui.show(config.getIsFile());
             }
         }
+
+        if(config.getHasArduino())
+        {
+            char c = std::rand() % 26 + 'A';
+            arduino.sendMessage(c, cv::Point(5, 5));
+            cv::waitKey(300);
+        }
+
     }
     while(config.getIsDevice());
 
