@@ -53,15 +53,15 @@ int main(int argc, char* argv[])
         LDetector detector;
 
         cv::Mat image;
-        if(config.getIsFile())
-            image = cv::imread(config.getFileName());
-        else
-            image = camera.getImage(config.getIsDebug());
+        if(config.getIsFile());
+            //image = cv::imread(config.getFileName());
+        //else
+        //    image = camera.getImage(config.getIsDebug());
 
-        detector.elLoad(image);
-        detector.elSplit();
-        detector.elThresh();
-        detector.elContours(); detector.elFilter();
+        //detector.elLoad(image);
+        //detector.elSplit();
+        //detector.elThresh();
+        //detector.elContours(); detector.elFilter();
 
         bool foundL = true;
         if (detector.getLs().size() > 0)
